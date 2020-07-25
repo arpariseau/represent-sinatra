@@ -1,5 +1,7 @@
 require 'sinatra'
 require "sinatra/namespace"
+require './services/propublica_service'
+require 'pry'
 
 namespace '/api/v1' do
 
@@ -8,11 +10,22 @@ namespace '/api/v1' do
   end
 
   get '/representatives' do
-    "This is where the representatives should be."
+    service = get_propublica
+    json = service.house_members
+    binding.pry
+    RepresentativeSerializer.new(json)
   end
 
   get '/senators' do
-
+    service = get_propublica
+    service.senators
+    binding.pry
+    SenatorSerializer.new(json)
   end
+end
 
+private
+
+def get_propublica
+  PropublicaService.new
 end

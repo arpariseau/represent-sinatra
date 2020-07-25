@@ -10,6 +10,10 @@ namespace '/api/v1' do
     content_type 'application/json'
   end
 
+  get '/' do
+    "Sinatra's running!"
+  end
+
   get '/representatives' do
     service = get_propublica
     json = service.house_members

@@ -2,12 +2,6 @@ require 'date'
 
 class RepresentativeSerializer
 
-  # attributes :first_name, :last_name, :dob, :gender, :party, :leadership_role,
-  #            :facebook_account, :twitter_account, :govtrack_id, :url, :contact_form,
-  #            :cook_pvi, :dw_nominate, :total_votes, :missed_votes, :last_updated,
-  #            :office, :phone, :state, :district, :missed_votes_percentage, :at_large,
-  #            :votes_with_percentage, :votes_without_party_percentage, :congress_id,
-
   def initialize(json)
     @house_reps = json[:results].first[:members]
   end

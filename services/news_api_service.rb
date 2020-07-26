@@ -1,6 +1,5 @@
 require 'faraday'
 require '././config/config'
-require 'pry'
 
 class NewsapiService
 

@@ -5,7 +5,6 @@ require './services/news_api_service'
 require './serializers/representative_serializer'
 require './serializers/senator_serializer'
 require './serializers/article_serializer'
-require 'pry'
 
 namespace '/api/v1' do
 

@@ -14,8 +14,8 @@ class NewsapiService
   private
 
   def format_request(favorite_names)
-    favorite_names.join('"OR"')
-  end 
+    favorite_names.split(",").join('"OR"')  
+  end
 
   def conn
     Faraday.new(url: "https://newsapi.org/") do |faraday|

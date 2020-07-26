@@ -1,5 +1,3 @@
-require 'date'
-
 class RepresentativeSerializer
 
   def initialize(json)
@@ -22,7 +20,6 @@ class RepresentativeSerializer
     clean_hash = delete_unneeded_rep_attr(rep_hash)
     clean_hash[:govtrack_id] = clean_hash[:govtrack_id].to_i
     clean_hash[:district] = clean_hash[:district].to_i
-    clean_hash[:last_updated] = clean_hash[:last_updated].to_datetime
     clean_hash[:dob] = clean_hash.delete(:date_of_birth)
     clean_hash[:congress_id] = clean_hash.delete(:id)
     clean_hash[:missed_votes_percentage] = clean_hash.delete(:missed_votes_pct)

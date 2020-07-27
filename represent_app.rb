@@ -31,10 +31,10 @@ namespace '/api/v1' do
   get '/articles' do 
     service = get_news_api
 
-    favorite_names = params["favorite_names"]
-    language_abbrev = params["language"]
-    sort_by = params["sort"]
-    num_results = params["num_results"]
+    favorite_names = params[:favorite_names]
+    language_abbrev = params[:language]
+    sort_by = params[:sort]
+    num_results = params[:num_results]
 
     json = service.get_everything(favorite_names, language_abbrev, sort_by, num_results)
     ArticleSerializer.new(json).json_api

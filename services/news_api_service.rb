@@ -5,15 +5,16 @@ class NewsapiService
 
   def get_everything(favorite_names, language_abbrev, sort_by, num_results)
 
-    params = { q: format_request(favorite_names), sortBy: sort_by, language: language_abbrev, pageSize: num_results}
+    params = { q: format_request(favorite_names), sortBy: sort_by,
+               language: language_abbrev, pageSize: num_results }
 
     get_json("v2/everything", params)
-  end 
+  end
 
   private
 
   def format_request(favorite_names)
-    favorite_names.split(",").join('"OR"')  
+    favorite_names.split(",").join('"OR"')
   end
 
   def conn
@@ -27,4 +28,4 @@ class NewsapiService
     end
     JSON.parse(response.body, symbolize_names: true)
   end
-end 
+end

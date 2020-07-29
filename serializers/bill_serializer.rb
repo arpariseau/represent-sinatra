@@ -12,6 +12,7 @@ class BillSerializer
 
   def compile_bill_list
     service = PropublicaService.new
+    find_most_recent_votes
     clean_list = separate_duplicates.concat(merge_duplicates)
     clean_list.map do |bill|
       results = service.bills(bill.keys.first)[:results].first
@@ -53,6 +54,41 @@ class BillSerializer
     bill_info[:house_roll_call] = bill_hash[:house_roll_call]
     bill_info[:house_offset] = bill_hash[:house_offset]
     bill_info
+  end
+
+  def find_most_recent_votes
+    bill_ids = @bills.map { |bill| bill.keys.first }
+    multi_votes = bill_ids.find_all { |bill| bill_ids.count(bill) > 2 }
+    multi_bills = find_all_multi_vote_bills(multi_votes)
+    indexes = @bills.each_index.select do |index|
+      multi_votes.include?(@bills[index].keys.first)
+    end
+    most_recent_house = multi_bills.max_by { |bill| bill.values.first[:house_roll_call] }
+    most_recent_senate = multi_bills.max_by { |bill| bill.values.first[:senate_roll_call] }
+    indexes.each do |index|
+      if @bills[index].values.first[:house_roll_call] !=
+         most_recent_house.values.first[:house_roll_call] &&
+         @bills[index].values.first[:senate_roll_call] !=
+         most_recent_senate.values.first[:senate_roll_call]
+           @bills.delete_at(index)
+      elsif @bills[index].values.first[:house_roll_call] == 0
+        @bills[index].values.first.delete(:house_roll_call)
+      elsif @bills[index].values.first[:senate_roll_call] == 0
+        @bills[index].values.first.delete(:senate_roll_call)
+      end
+    end
+  end
+
+  def find_all_multi_vote_bills(multi_vote_ids)
+    multi_bills = @bills.find_all { |bill| multi_vote_ids.include?(bill.keys.first) }
+    multi_bills.each do |bill|
+      unless bill.values.first.has_key?(:house_roll_call)
+        bill.values.first[:house_roll_call] = 0
+      end
+      unless bill.values.first.has_key?(:senate_roll_call)
+        bill.values.first[:senate_roll_call] = 0
+      end
+    end
   end
 
 end

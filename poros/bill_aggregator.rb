@@ -1,5 +1,4 @@
 require '././services/propublica_service'
-require 'pry'
 
 class BillAggregator
 
@@ -50,7 +49,7 @@ class BillAggregator
 
   def filter_bill_info(vote, chamber, offset)
     bill_id = vote[:bill][:bill_id].chomp("-116")
-    bill_vote_info = { (chamber + "_roll_call").to_sym => vote[:roll_call],
+    bill_vote_info = { (chamber + "_roll_call").to_sym => vote[:roll_call].to_i,
                        (chamber + "_offset").to_sym => offset }
     { bill_id.to_sym => bill_vote_info }
   end

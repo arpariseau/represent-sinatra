@@ -3,9 +3,11 @@ require "sinatra/namespace"
 require './poros/bill_aggregator'
 require './services/propublica_service'
 require './services/news_api_service'
+require './serializers/article_serializer'
+require './serializers/bill_serializer'
 require './serializers/representative_serializer'
 require './serializers/senator_serializer'
-require './serializers/article_serializer'
+require 'pry'
 
 namespace '/api/v1' do
 
@@ -43,7 +45,7 @@ namespace '/api/v1' do
 
   get '/bills' do
     bill_list = BillAggregator.new.aggregate_bills
-    binding.pry
+    BillSerializer.new(bill_list).json_api
   end
 
 end

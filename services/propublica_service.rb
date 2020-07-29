@@ -10,6 +10,22 @@ class PropublicaService
     get_json("/congress/v1/116/senate/members.json")
   end
 
+  def bills(bill_id)
+    get_json("/congress/v1/116/bills/#{bill_id}.json")
+  end
+
+  def total_senate_votes
+    get_json("/congress/v1/members/S001191.json")
+  end
+
+  def total_house_votes
+    get_json("/congress/v1/members/O000172.json")
+  end
+
+  def member_vote(member_id, offset)
+    get_json("/congress/v1/members/#{member_id}/votes.json", { offset: offset })
+  end
+
   private
 
   def conn
@@ -18,8 +34,8 @@ class PropublicaService
     end
   end
 
-  def get_json(url)
-    response = conn.get(url)
+  def get_json(url, params = nil)
+    response = conn.get(url, params)
     JSON.parse(response.body, symbolize_names: true)
   end
 end

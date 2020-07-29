@@ -7,7 +7,6 @@ require './serializers/article_serializer'
 require './serializers/bill_serializer'
 require './serializers/representative_serializer'
 require './serializers/senator_serializer'
-require 'pry'
 
 namespace '/api/v1' do
 

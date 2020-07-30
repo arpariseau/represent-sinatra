@@ -22,7 +22,7 @@ class BillAggregator
       votes.each do |vote|
         if vote[:question] == "On Passage" ||
            vote[:question] == "On Motion to Suspend the Rules and Pass"
-          bill_list << filter_bill_info(vote, "house", offset)
+          bill_list << filter_bill_info(vote, "house")
         end
       end
       offset += 20
@@ -39,7 +39,7 @@ class BillAggregator
       votes = @service.member_vote("S001191", offset)[:results].first[:votes]
       votes.each do |vote|
         if vote[:question] == "On Passage of the Bill"
-          bill_list << filter_bill_info(vote, "senate", offset)
+          bill_list << filter_bill_info(vote, "senate")
         end
       end
       offset += 20
@@ -47,10 +47,10 @@ class BillAggregator
     bill_list
   end
 
-  def filter_bill_info(vote, chamber, offset)
+  def filter_bill_info(vote, chamber)
     bill_id = vote[:bill][:bill_id].chomp("-116")
     bill_vote_info = { (chamber + "_roll_call").to_sym => vote[:roll_call].to_i,
-                       (chamber + "_offset").to_sym => offset }
+                       (chamber + "_session").to_sym => vote[:session].to_i }
     { bill_id.to_sym => bill_vote_info }
   end
 

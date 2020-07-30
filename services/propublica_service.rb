@@ -14,16 +14,16 @@ class PropublicaService
     get_json("/congress/v1/116/bills/#{bill_id}.json")
   end
 
-  def total_senate_votes
-    get_json("/congress/v1/members/S001191.json")
-  end
-
-  def total_house_votes
-    get_json("/congress/v1/members/O000172.json")
+  def total_votes(member_id)
+    get_json("/congress/v1/members/#{member_id}.json")
   end
 
   def member_vote(member_id, offset)
     get_json("/congress/v1/members/#{member_id}/votes.json", { offset: offset })
+  end
+
+  def roll_call_vote(chamber, session, roll_call)
+    get_json("/congress/v1/116/#{chamber}/sessions/#{session}/votes/#{roll_call}.json")
   end
 
   private

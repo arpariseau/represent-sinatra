@@ -46,19 +46,17 @@ namespace '/api/v1' do
 
   get '/bills' do
     bill_list = BillAggregator.new.aggregate_bills
-    api_data = BillSerializer.new(bill_list).json_api
-    File.open("./bills.json", "w") do |f|
-      f.write(api_data)
-    end
+    BillSerializer.new(bill_list).json_api
   end
 
   get '/member_votes' do
     member_id = params[:member_id]
-    offset = params[:offset]
+    chamber = params[:chamber]
+    session = params[:session]
+    roll_call = params[:roll_call]
 
-    json = get_propublica.member_vote(member_id, offset)
-
-    MemberVoteSerializer.new(json).json_api
+    json = get_propublica.roll_call_vote(chamber, session, roll_call)
+    MemberVoteSerializer.new(member_id, json).json_api
   end
 
   get '/images' do

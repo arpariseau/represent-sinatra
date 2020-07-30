@@ -2,20 +2,24 @@ require '././services/propublica_service'
 
 class MemberVoteSerializer
 
-  def initialize(json)
-    @bill_votes = json[:results].first[:votes]
+  def initialize(member_id, json)
+    @member_id = member_id
+    @vote = json[:results][:votes][:vote]
   end
 
   def json_api
-    {data: clean_member_vote(@bill_votes)}.to_json
+    {data: find_member_vote}.to_json
   end
 
-  def clean_member_vote(bill_votes)
-    votes_hash = {}
-    bill_votes.each do |vote|
-      votes_hash[vote[:roll_call]] = vote[:position]
-    end 
+  private
 
-    votes_hash
-  end 
+  def find_member_vote
+    member_vote = { @vote[:roll_call] => nil }
+    @vote[:positions].each do |congress|
+      if congress[:member_id] = @member_id
+        member_vote[@vote[:roll_call]] = congress[:vote_position]
+      end
+    end
+    member_vote
+  end
 end

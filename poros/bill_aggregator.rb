@@ -13,7 +13,7 @@ class BillAggregator
   end
 
   def aggregate_house_bills
-    house_votes = @service.total_house_votes
+    house_votes = @service.total_votes("O000172")
     num_votes = house_votes[:results].first[:roles].first[:total_votes]
     offset = 0
     bill_list = []
@@ -31,7 +31,7 @@ class BillAggregator
   end
 
   def aggregate_senate_bills
-    senate_votes = @service.total_senate_votes
+    senate_votes = @service.total_votes("S001191")
     num_votes = senate_votes[:results].first[:roles].first[:total_votes]
     offset = 0
     bill_list = []

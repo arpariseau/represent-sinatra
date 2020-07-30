@@ -1,6 +1,7 @@
 require 'sinatra'
 require "sinatra/namespace"
 require './poros/bill_aggregator'
+require './serializers/member_vote_serializer'
 require './services/propublica_service'
 require './services/news_api_service'
 require './serializers/article_serializer'
@@ -46,6 +47,15 @@ namespace '/api/v1' do
     bill_list = BillAggregator.new.aggregate_bills
     BillSerializer.new(bill_list).json_api
   end
+
+  get '/member_votes' do
+    member_id = params[:member_id]
+    offset = params[:offset]
+
+    json = get_propublica.member_vote(member_id, offset)
+
+    MemberVoteSerializer.new(json).json_api
+  end 
 
 end
 

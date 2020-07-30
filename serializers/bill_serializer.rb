@@ -50,9 +50,9 @@ class BillSerializer
     bill_info.delete_if {|key, value| !needed_attr.include?(key)}
     bill_info[:congress_url] = bill_info.delete(:congressdotgov_url)
     bill_info[:senate_roll_call] = bill_hash[:senate_roll_call]
-    bill_info[:senate_offset] = bill_hash[:senate_offset]
+    bill_info[:senate_session] = bill_hash[:senate_session]
     bill_info[:house_roll_call] = bill_hash[:house_roll_call]
-    bill_info[:house_offset] = bill_hash[:house_offset]
+    bill_info[:house_session] = bill_hash[:house_session]
     bill_info
   end
 

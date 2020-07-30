@@ -1,11 +1,12 @@
 require 'sinatra'
 require "sinatra/namespace"
 require './poros/bill_aggregator'
-require './serializers/member_vote_serializer'
 require './services/propublica_service'
 require './services/news_api_service'
+require './services/image_repo_service'
 require './serializers/article_serializer'
 require './serializers/bill_serializer'
+require './serializers/member_vote_serializer'
 require './serializers/representative_serializer'
 require './serializers/senator_serializer'
 
@@ -45,7 +46,10 @@ namespace '/api/v1' do
 
   get '/bills' do
     bill_list = BillAggregator.new.aggregate_bills
-    BillSerializer.new(bill_list).json_api
+    api_data = BillSerializer.new(bill_list).json_api
+    File.open("./bills.json", "w") do |f|
+      f.write(api_data)
+    end
   end
 
   get '/member_votes' do
@@ -55,7 +59,13 @@ namespace '/api/v1' do
     json = get_propublica.member_vote(member_id, offset)
 
     MemberVoteSerializer.new(json).json_api
-  end 
+  end
+
+  get '/images' do
+    congress_id = params[:congress_id]
+
+    get_image_repo.get_image(congress_id)
+  end
 
 end
 
@@ -67,4 +77,8 @@ end
 
 def get_news_api
   NewsapiService.new
+end
+
+def get_image_repo
+  ImageRepoService.new
 end

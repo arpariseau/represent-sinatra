@@ -1,3 +1,5 @@
+require 'json'
+
 class BillSerializer
 
   def initialize(bill_list)
@@ -5,7 +7,7 @@ class BillSerializer
   end
 
   def json_api
-    {data: compile_bill_list}.to_json
+    JSON.pretty_generate({data: compile_bill_list})
   end
 
   private

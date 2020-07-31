@@ -33,7 +33,7 @@ You should then be able to run the service locally using ```localhost:4567```
 
 ## Built With
 
-* **Rails**
+* **Ruby**
 * **Sinatra**
 
 ## Authors

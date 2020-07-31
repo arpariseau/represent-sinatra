@@ -31,6 +31,10 @@ NEWS_API_KEY: <YOUR_KEY_HERE>
 
 You should then be able to run the service locally using ```localhost:4567```
 
+#### Caution: ####
+
+The '/bills' endpoint is very call-intensive on the Propublica API, because of the amount of data it collects. Use sparingly, as it is easy to rate-limit your API key with it. It will also take some time to run, thanks to the amount of calls.
+
 ## Built With
 
 * **Ruby**

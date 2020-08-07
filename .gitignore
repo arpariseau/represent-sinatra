@@ -2,3 +2,5 @@
 # Ignore application configuration
 /config/application.yml
 bills.json
+house_votes.json
+senate_votes.json

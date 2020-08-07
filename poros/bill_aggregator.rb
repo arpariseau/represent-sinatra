@@ -4,12 +4,24 @@ class BillAggregator
 
   def initialize
     @service = PropublicaService.new
+    @house_vote_types = {}
+    @senate_vote_types = {}
   end
 
   def aggregate_bills
     house_votes = aggregate_house_bills
     senate_votes = aggregate_senate_bills
     house_votes.concat(senate_votes)
+  end
+
+  def get_house_vote_info
+    aggregate_house_bills
+    @house_vote_types
+  end
+
+  def get_senate_vote_info
+    aggregate_senate_bills
+    @senate_vote_types
   end
 
   def aggregate_house_bills
@@ -20,9 +32,13 @@ class BillAggregator
     while offset < num_votes
       votes = @service.member_vote("O000172", offset)[:results].first[:votes]
       votes.each do |vote|
-        if vote[:question] == "On Passage" ||
-           vote[:question] == "On Motion to Suspend the Rules and Pass"
+        if vote[:question].include?("Pass")
           bill_list << filter_bill_info(vote, "house")
+        end
+        if @house_vote_types.has_key?(vote[:question])
+          @house_vote_types[vote[:question]] += 1
+        else
+          @house_vote_types[vote[:question]] = 1
         end
       end
       offset += 20
@@ -40,6 +56,11 @@ class BillAggregator
       votes.each do |vote|
         if vote[:question] == "On Passage of the Bill"
           bill_list << filter_bill_info(vote, "senate")
+        end
+        if @senate_vote_types.has_key?(vote[:question])
+          @senate_vote_types[vote[:question]] += 1
+        else
+          @senate_vote_types[vote[:question]] = 1
         end
       end
       offset += 20

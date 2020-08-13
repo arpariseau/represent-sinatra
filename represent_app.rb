@@ -48,19 +48,13 @@ namespace '/api/v1' do
   get '/bills' do
     bill_list = BillAggregator.new.aggregate_bills
 
-    api_data = BillSerializer.new(bill_list).json_api
-    File.open("bills.json", "w") do |f|
-      f.write(api_data)
-    end
+    BillSerializer.new(bill_list).json_api
   end
 
   get '/chamber_votes' do
     chamber = params[:chamber]
 
-    api_data = ChamberVoteSerializer.new(chamber).json_api
-    File.open("#{chamber}_votes.json", "w") do |f|
-      f.write(api_data)
-    end
+    ChamberVoteSerializer.new(chamber).json_api
   end
 
   get '/member_votes' do

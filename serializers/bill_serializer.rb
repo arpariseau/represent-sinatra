@@ -1,5 +1,4 @@
 require '././services/propublica_service'
-require 'json'
 
 class BillSerializer
 
@@ -8,7 +7,7 @@ class BillSerializer
   end
 
   def json_api
-    JSON.pretty_generate({data: compile_bill_list})
+    {data: compile_bill_list}
   end
 
   private

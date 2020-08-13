@@ -1,5 +1,4 @@
 require '././poros/bill_aggregator'
-require 'json'
 
 class ChamberVoteSerializer
 
@@ -9,7 +8,7 @@ class ChamberVoteSerializer
   end
 
   def json_api
-    JSON.pretty_generate({ data: find_chamber_votes })
+    { data: find_chamber_votes }
   end
 
   def find_chamber_votes

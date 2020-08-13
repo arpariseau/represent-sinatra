@@ -3,4 +3,5 @@
 /config/application.yml
 bills.json
 house_votes.json
+house_votes_filter.json
 senate_votes.json

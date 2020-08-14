@@ -7,7 +7,7 @@ class BillSerializer
   end
 
   def json_api
-    {data: compile_bill_list}
+    {data: compile_bill_list}.to_json
   end
 
   private

@@ -1,3 +1,5 @@
+require '././services/propublica_service'
+
 class BillSerializer
 
   def initialize(bill_list)

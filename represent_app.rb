@@ -6,6 +6,7 @@ require './services/news_api_service'
 require './services/image_repo_service'
 require './serializers/article_serializer'
 require './serializers/bill_serializer'
+require './serializers/chamber_vote_serializer'
 require './serializers/member_vote_serializer'
 require './serializers/representative_serializer'
 require './serializers/senator_serializer'
@@ -46,7 +47,14 @@ namespace '/api/v1' do
 
   get '/bills' do
     bill_list = BillAggregator.new.aggregate_bills
+
     BillSerializer.new(bill_list).json_api
+  end
+
+  get '/chamber_votes' do
+    chamber = params[:chamber]
+
+    ChamberVoteSerializer.new(chamber).json_api
   end
 
   get '/member_votes' do

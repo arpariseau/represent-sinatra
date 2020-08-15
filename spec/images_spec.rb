@@ -1,6 +1,6 @@
 require File.expand_path '../spec_helper.rb', __FILE__
 
-describe "Accessing the image endpoint" do
+describe "Accessing the images endpoint" do
   it "should get a url for a representative with an image" do
     get 'api/v1/images?congress_id=O000172'
     expect(last_response.body).to eq("https://theunitedstates.io/images/congress/450x550/O000172.jpg")

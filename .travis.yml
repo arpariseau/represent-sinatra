@@ -1,0 +1,13 @@
+language: ruby
+rvm: 2.5.3
+script:
+- bundle exec rspec
+deploy:
+  provider: heroku
+  api_key:
+    secure: Rfxp661Ew08w+DVXPqIsKKAKr38qFoVM+M/d8OOaL+yaWLar6aHl7dM+jFAHFsFxzFuRMl6X3BAwy1C0bd5zCpF3biN1ImkjS2jz6xvT9DCjtOaGzCkCR7GL4nEv0ma9zQNqJfI8/PIRTSVG85EBe6pe73BIUPkqly/JnMQtSNG//+BfkJP7FMTxhqz8ThUQiwnW+Ewc96OCGBWjU5QMiKx1STQhsdNT1ZfbR/MaRkahLg1U3z4hbtcxQcZy+1nWDWW2KQHfslSjZZnCsEUUKUVd8krZLujIp/H+Qq2KBIHMm/LnJ5jitBKBdNzh+QoscdsRXdhINKswdaLYoAiSotJZMdb76sVuv8xdgsuK5CTqV71wKjnD/1UgFUQx5JUGYUYAxJTvCAwn4KNJk2ljZ/NGL2G1dHo6OnkSMoxE2CRIzqmJjAAtoASz8pdEVD5wA99Prth8wEH992ypx1QJBsozwT1olNjqiOthOyGm9p90UAOmf8b4hHg5Dm59+tKms+EllHwe/d9ejyhyjYpSoVhFRlr/iNDePLehT/KmkxpWl0CgA4Ixx64DTrm6k/qVa2mB+qDvb7psTDdueUCT51TkZ47qs9kVGhDk/p4U7dQrfGrvxXg4yEHzFqh1W0vRFV45P4UbpnvVTsgU5Jd513YetVJXhG5AZouEiDlfgB0=
+  app: represent-sinatra
+  on:
+    repo: arpariseau/represent-sinatra
+    branch: travis-ci
+  skip_cleanup: 'true'

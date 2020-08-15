@@ -6,7 +6,6 @@ gem 'figaro'
 gem 'faraday'
 
 group :test do
- gem "capybara"
- gem "rspec"
- gem "rack-test"
+ gem 'rspec'
+ gem 'rack-test'
 end

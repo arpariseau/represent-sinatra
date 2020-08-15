@@ -4,6 +4,7 @@ describe "Accessing the articles endpoint" do
   it "should get articles" do
     get 'api/v1/articles?language=en&sort=relevance&num_results=6&favorite_names="nancy pelosi,mitch mcconnell"'
     article_resp = JSON.parse(last_response.body, symbolize_names: true)
+    expect(article_resp[:data].length).to eq(6)
     expect(article_resp[:data].first).to have_key(:source)
     expect(article_resp[:data].first).to have_key(:title)
     expect(article_resp[:data].first).to have_key(:description)

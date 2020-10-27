@@ -31,9 +31,37 @@ NEWS_API_KEY: <YOUR_KEY_HERE>
 
 You should then be able to run the service locally using ```localhost:4567```
 
-#### Caution: ####
+#### Caution: 
 
 The '/bills' endpoint is very call-intensive on the Propublica API, because of the amount of data it collects. Use sparingly, as it is easy to rate-limit your API key with it. It will also take some time to run, thanks to the amount of calls.
+
+
+### Endpoints
+
+- /representatives
+  * This endpoint retrieves biographical information from active members of the United States House of Representatives.
+- /senators
+  * This endpoint retrieves biographical information from active members of the United States Senate.
+- /articles
+  * This endpoint retrieves news articles for requested members of Congress. The parameters are:
+    - A comma separated list of members
+    - The sorting methodology ('relevance', for example)
+    - The language, using an abbreviation ('en' for English, for example)
+    - The number of articles requested
+- /bills
+  * This endpoint retrieves the bills that have gone up for a passage vote in Congress in the current congressional session.
+- /chamber_votes
+  * This endpoint retrieves the number of different types of roll call votes that have been performed over the course of the current congressional session. The parameter is:
+    - The chamber in question ('house' or 'senate')
+- /member_votes
+  * This endpoint retrieves the vote from a particular member of Congress on a particular roll call vote. The parameters are:
+    - The Congressional ID of the member in question
+    - The chamber in which the member sits ('house' or 'senate')
+    - The session in which the vote occurred (Each two-year Congress is split into 2 sessions, one for each year. '1' is the first session, over the course of an odd number year - for example, 2019, and '2' is the second session occuring during an even number year - for example, 2020)
+- /images
+  * This endpoint retrieves an image url from a repository containing official portaits of US Congress members. It returns a default if one is missing. The parameter is:
+    - The Congressional ID of the member in question
+
 
 ## Built With
 
